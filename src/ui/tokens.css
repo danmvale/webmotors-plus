@@ -1,0 +1,108 @@
+/*
+ * Design tokens. Webmotors defines ~900 `--ds-*` custom properties on :root;
+ * custom properties inherit into shadow roots, so we follow the site's design
+ * system and keep its current values as fallbacks.
+ */
+:host {
+  --wmp-font: Figtree, 'Figtree Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --wmp-text: var(--ds-color-text-neutral-base, #2e2e3a);
+  --wmp-text-subtle: var(--ds-color-text-neutral-subtle, #6a6977);
+  --wmp-text-muted: var(--ds-color-text-neutral-muted, #8e8e9c);
+  /* Text and icons on brand-red surfaces (buttons, badges): always white. */
+  --wmp-on-brand: #ffffff;
+  --wmp-brand: var(--ds-color-text-brand-base, #e22446);
+  --wmp-brand-surface: var(--ds-color-surface-brand-base, #e22446);
+  --wmp-brand-hover: var(--ds-color-surface-brand-state-hover, #a91b35);
+  --wmp-brand-subtle: var(--ds-color-surface-brand-subtle, #fbe4e8);
+  --wmp-success: var(--ds-color-text-success-base, #269957);
+  --wmp-complementary: var(--ds-color-surface-complementary-base, #5858bf);
+  --wmp-complementary-subtle: var(--ds-color-surface-complementary-subtle, #eaeaf7);
+  --wmp-border: var(--ds-color-border-neutral-subtle, #e9e9f5);
+  --wmp-border-strong: var(--ds-color-border-neutral-base, #cdcddb);
+  /* Cards and filter-section separators on the results page. */
+  --wmp-border-card: #edecf2;
+  --wmp-focus: var(--ds-color-border-accessibility-focus, #16a6c7);
+  --wmp-surface: var(--ds-color-surface-neutral-base, #ffffff);
+  --wmp-surface-subtle: var(--ds-color-surface-neutral-subtle, #f7f7ff);
+  --wmp-surface-soft: var(--ds-color-surface-neutral-soft, #e9e9f5);
+  --wmp-surface-hover: var(--ds-color-surface-neutral-state-hover, #e9e9f5);
+  --wmp-gradient-ai: var(--ds-gradient-ai, linear-gradient(90deg, #e22446, #5858bf));
+  --wmp-radius-2xs: var(--ds-border-radius-2xsmall, 4px);
+  --wmp-radius-xs: var(--ds-border-radius-xsmall, 8px);
+  --wmp-radius-sm: var(--ds-border-radius-small, 12px);
+  --wmp-radius-md: var(--ds-border-radius-medium, 16px);
+  --wmp-radius-full: var(--ds-border-radius-full, 999px);
+  --wmp-shadow: var(--ds-shadow-small, 0 8px 16px #6a697729);
+  --wmp-shadow-strong: var(--ds-shadow-medium, 0 8px 24px #6a69773d);
+}
+
+.wmp-root {
+  font-family: var(--wmp-font);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--wmp-text);
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.wmp-root *,
+.wmp-root *::before,
+.wmp-root *::after {
+  box-sizing: inherit;
+}
+
+/* Zero specificity: component classes (.wmp-btn--primary…) must win over this reset. */
+:where(.wmp-root) :where(button, input) {
+  font: inherit;
+  color: inherit;
+}
+
+.wmp-root :focus-visible {
+  outline: 2px solid var(--wmp-focus);
+  outline-offset: 2px;
+}
+
+.wmp-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.wmp-spin {
+  animation: wmp-spin 0.8s linear infinite;
+}
+
+@keyframes wmp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wmp-shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.wmp-skeleton {
+  border-radius: var(--wmp-radius-2xs);
+  background: linear-gradient(90deg, var(--wmp-surface-soft) 0, var(--wmp-surface-subtle) 50%, var(--wmp-surface-soft) 100%);
+  background-size: 200px 100%;
+  animation: wmp-shimmer 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wmp-spin,
+  .wmp-skeleton {
+    animation: none;
+  }
+}

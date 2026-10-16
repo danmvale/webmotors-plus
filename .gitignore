@@ -1,0 +1,10 @@
+node_modules
+.output
+.wxt
+web-ext.config.ts.local
+stats.html
+stats-*.json
+*.log
+.DS_Store
+.playwright-mcp
+.specs
